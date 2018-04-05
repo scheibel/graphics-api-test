@@ -1,18 +1,20 @@
 #include "rendergl.h"
 
 #include <glbinding/gl/gl.h>
-#include <glbinding/Binding.h>
+#include <glbinding/glbinding.h>
+
+#include <eglbinding/eglGetProcAddress.h>
 
 using namespace gl;
 
 void initializeGL()
 {
-    glbinding::Binding::initialize();
+    glbinding::initialize(eglGetProcAddress);
 }
 
 void uninitializeGL()
 {
-    glbinding::Binding::releaseCurrentContext();
+    glbinding::releaseCurrentContext();
 }
 
 void resizeGL(int width, int height)

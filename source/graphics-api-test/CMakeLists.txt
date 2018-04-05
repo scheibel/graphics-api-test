@@ -5,9 +5,11 @@
 
 find_package(glm       REQUIRED)
 find_package(glbinding REQUIRED)
+find_package(glesbinding REQUIRED)
+find_package(eglbinding REQUIRED)
 find_package(cpplocate REQUIRED)
 find_package(EGL       REQUIRED)
-find_package(GLESv2    REQUIRED)
+find_package(KHR       REQUIRED)
 
 find_package(Qt5Core    5.1 REQUIRED)
 find_package(Qt5Gui     5.1 REQUIRED)
@@ -97,10 +99,13 @@ target_link_libraries(${target}
     ${DEFAULT_LIBRARIES}
     
     glm
+    eglbinding::eglbinding
     glbinding::glbinding
+    glbinding::glbinding-aux
+    glesbinding::glesbinding
+    glesbinding::glesbinding-aux
     cpplocate::cpplocate
-    EGL::EGL
-    GLESv2::GLESv2
+    EGL::EGLlib
     Qt5::Core
     Qt5::Gui
     Qt5::Widgets

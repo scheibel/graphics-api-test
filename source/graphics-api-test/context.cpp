@@ -4,9 +4,12 @@
 
 #include <QDebug>
 
-#include <EGL/egl.h>
+#include <eglbinding/eglbinding.h>
+#include <eglbinding/egl/egl.h>
+#include <eglbinding/eglGetProcAddress.h>
 
 using namespace std;
+using namespace egl;
 
 namespace
 {
@@ -20,7 +23,7 @@ EGLConfig  egl_cfg;
 
 void initializeDisplay(EGLWindow window)
 {
-    //eglbinding::Binding::initialize();
+    eglbinding::initialize(::eglGetProcAddress);
 
     egl_display  =  eglGetDisplay( (EGLNativeDisplayType) EGL_DEFAULT_DISPLAY );
     if (egl_display == nullptr)
@@ -56,7 +59,7 @@ void initializeDisplay(EGLWindow window)
         return;
     }
 
-    egl_surface = eglCreateWindowSurface ( egl_display, egl_cfg, window, nullptr );
+    egl_surface = eglCreateWindowSurface ( egl_display, egl_cfg, reinterpret_cast<EGLNativeWindowType>(window), nullptr );
     if ( egl_surface == nullptr) { // EGL_NO_SURFACE
         cerr << "Unable to create EGL surface (eglError: " << std::hex << eglGetError() << ")" << endl;
     }
@@ -67,7 +70,7 @@ void uninitializeDisplay()
     eglDestroySurface ( egl_display, egl_surface );
     eglTerminate(egl_display);
 
-    //eglbinding::Binding::releaseCurrentContext();
+    //eglbinding::releaseCurrentContext();
 }
 
 void createGLContext()
@@ -96,7 +99,7 @@ void createGLESContext()
     eglBindAPI(EGL_OPENGL_ES_API);
 
     static const EGLint ctxattr[] = {
-        static_cast<EGLint>(EGL_CONTEXT_MAJOR_VERSION), 3,
+        static_cast<EGLint>(EGL_CONTEXT_CLIENT_VERSION), 3,
         static_cast<EGLint>(EGL_NONE)
     };
 

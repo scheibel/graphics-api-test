@@ -1,17 +1,20 @@
 #include "rendergles.h"
 
-#include <GLES2/gl2.h>
+#include <glesbinding/glesbinding.h>
+#include <glesbinding/gles/gles.h>
 
-//using namespace gles;
+#include <eglbinding/eglGetProcAddress.h>
+
+using namespace gles;
 
 void initializeGLES()
 {
-    //glesbinding::Binding::initialize();
+    glesbinding::initialize(eglGetProcAddress);
 }
 
 void uninitializeGLES()
 {
-    //glesbinding::Binding::releaseCurrentContext();
+    glesbinding::releaseCurrentContext();
 }
 
 void resizeGLES(int width, int height)
