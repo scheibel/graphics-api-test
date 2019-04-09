@@ -100,6 +100,7 @@ target_link_libraries(${target}
     
     glm
     eglbinding::eglbinding
+    eglbinding::eglbinding-aux
     glbinding::glbinding
     glbinding::glbinding-aux
     glesbinding::glesbinding

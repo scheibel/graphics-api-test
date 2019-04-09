@@ -7,6 +7,7 @@
 #include <eglbinding/eglbinding.h>
 #include <eglbinding/egl/egl.h>
 #include <eglbinding/eglGetProcAddress.h>
+#include <eglbinding-aux/types_to_string.h>
 
 using namespace std;
 using namespace egl;
